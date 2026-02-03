@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BE MY VALENTINE 💕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #ffe4ec;
+  overflow: hidden;
+}
+
+/* REEL CONTAINER */
+.reel {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* CARD */
+.card {
+  background: white;
+  width: 90%;
+  max-width: 360px;
+  padding: 30px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(255,105,180,0.25);
+  z-index: 2;
+  animation: fadeIn 1.2s ease;
+}
+
+h1 {
+  color: #ff5fa2;
+  font-size: 20px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+
+button {
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  font-size: 14px;
+  background: #ff8fc7;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff5fa2;
+  transform: scale(1.05);
+}
+
+.no-btn {
+  background: #ffc1dd;
+  color: #ff5fa2;
+  position: absolute;
+}
+
+/* FLOATING HEARTS */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 18px;
+  opacity: 0.6;
+  animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-120vh) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* HEART POPUP */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.1); /* LIGHT OVERLAY */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none; /* ALLOW READING BEHIND */
+}
+
+.heart-popup {
+  width: 220px;
+  height: 200px;
+  background: #ff8fc7;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: pop 0.5s ease;
+}
+
+.heart-popup::before,
+.heart-popup::after {
+  content: "";
+  width: 220px;
+  height: 200px;
+  background: #ff8fc7;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart-popup::before {
+  top: -100px;
+  left: 0;
+}
+
+.heart-popup::after {
+  left: 100px;
+  top: 0;
+}
+
+.heart-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 20px;
+}
+
+@keyframes pop {
+  from { transform: scale(0) rotate(-45deg); }
+  to { transform: scale(1) rotate(-45deg); }
+}
+
+/* CONFETTI */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/02/28/audio_8e3b2e1c4b.mp3">
+</audio>
+
+<div class="popup" id="popup">
+  <div class="heart-popup">
+    <div class="heart-text">
+      THANK YOU SO MUCH BABY 💕
+    </div>
+  </div>
+</div>
+
+<div class="reel">
+  <div class="card" id="card">
+    <h1>
+      HEY MRUNAL 💖<br><br>
+      MAY YOU PLEASE ALLOW ME<br>
+      TO BE YOUR VALENTINE ?
+    </h1>
+
+    <div class="buttons">
+      <button onclick="yes()">YES 💕</button>
+      <button onclick="yes()">FOR SURE 💞</button>
+      <button class="no-btn" onmouseover="run(this)">NO 😔</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* FLOATING HEARTS */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💗";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (5 + Math.random() * 5) + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 9000);
+}, 400);
+
+/* NO BUTTON RUN */
+function run(btn) {
+  btn.style.transform =
+    `translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
+}
+
+/* CONFETTI */
+function confetti() {
+  for (let i=0;i<80;i++) {
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top="-10px";
+    c.style.background=`hsl(${Math.random()*360},100%,75%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+function yes() {
+  document.getElementById("music").play();
+  confetti();
+
+  const popup = document.getElementById("popup");
+  popup.style.display = "flex";
+
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 1000); // DISAPPEARS AFTER 1 SECOND
+
+  document.getElementById("card").innerHTML = `
+    <h1>YAYYYY MRUNAL 💖</h1>
+    <p style="color:#ff5fa2;font-size:14px;margin-top:15px;">
+      FOR MY ONE AND ONLY<br>
+      LOVE OF MY LIFE 💕
+    </p>`;
+}
+</script>
+
+</body>
+</html>
+
